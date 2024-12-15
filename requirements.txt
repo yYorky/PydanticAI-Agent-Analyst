@@ -1,0 +1,11 @@
+pydantic-ai
+yfinance
+gradio
+python-dotenv
+nest_asyncio
+matplotlib
+seaborn
+pandas
+numpy
+tabulate
+markdown
