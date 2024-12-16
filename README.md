@@ -23,6 +23,11 @@ This application is designed for informational purposes only and **does not cons
 - **ESG Analysis**: Highlights environmental, social, and governance metrics for sustainable investing.
 - **Interactive Interface**: User-friendly interface powered by Gradio for seamless interaction.
 
+## Demo
+
+Here is a demo where the model generates a report for Apple Inc (NASDAQ: AAPL)
+
+![](https://github.com/yYorky/PydanticAI-Agent-Analyst/blob/main/static/AAPL-ezgif.com-crop.gif?raw=true)
 
 
 ## Requirements
