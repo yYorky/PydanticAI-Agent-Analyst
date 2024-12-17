@@ -20,7 +20,7 @@ if not groq_api_key:
     raise ValueError("GROQ_API_KEY not found in .env file")
 
 groq_model = GroqModel(
-    model_name="llama-3.1-8b-instant",  # tokens per min at 20,000
+    model_name="llama-3.1-8b-instant",  # tokens per min at 20,000 & Context Window 128K
     api_key=groq_api_key
 )
 
@@ -52,14 +52,26 @@ def format_number(x):
             return f"{x:,.2f}"
     return str(x)
 
+# def format_dataframe(df: pd.DataFrame, max_rows=10):
+#     if df is None or df.empty:
+#         return "No data available."
+#     # Apply formatting
+#     formatted_df = df.copy()
+#     for col in formatted_df.columns:
+#         formatted_df[col] = formatted_df[col].apply(format_number)
+#     return formatted_df.head(max_rows).to_markdown(index=True, tablefmt="pipe")
+
 def format_dataframe(df: pd.DataFrame, max_rows=10):
+    """
+    Format a DataFrame and return it as an HTML table.
+    """
     if df is None or df.empty:
-        return "No data available."
-    # Apply formatting
+        return "<p>No data available.</p>"
+    
     formatted_df = df.copy()
     for col in formatted_df.columns:
         formatted_df[col] = formatted_df[col].apply(format_number)
-    return formatted_df.head(max_rows).to_markdown(index=True, tablefmt="pipe")
+    return formatted_df.head(max_rows).to_html(index=True, border=1, escape=False)
 
 def get_sma(df, window=50):
     return df['Close'].rolling(window=window).mean()
@@ -280,8 +292,8 @@ def get_stock_report(query):
 
     # Construct the System Prompt
     system_prompt = (
-        "You are an equity research analyst tasked with generating consise useful insights for stock data.\n"
-        "Generate concise insightful relevant commentary for the following sections:\n\n"
+        "You are an equity research analyst tasked with generating analyst report for stock data.\n"
+        "Generate concise relevant insights for the following sections:\n\n"
         "1. Executive Summary: A concise summary, include Ticker, Current Price, Recommendation considering the Current Price and the Target Price table and recommendations table, and rationale.\n"
         "2. Company Overview: Include Company Name, Sector, Industry, Website, and Business Summary.\n"
         "3. Industry and Market Analysis: Include the sector overview, trends, competitive landscape, and summarize the top companies in the sector.\n"
