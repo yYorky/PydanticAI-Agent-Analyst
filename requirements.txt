@@ -9,3 +9,7 @@ pandas
 numpy
 tabulate
 markdown
+reportlab
+weasyprint
+fpdf
+xhtml2pdf
